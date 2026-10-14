@@ -1,1 +1,85 @@
 # Avalia-o-Sitema-escolar
+
+# RELATÓRIO DE CORREÇÃO — SISTEMA ESCOLAR DJANGO
+
+**Aluno:** Gabriel Menezes e Vinicius Lima 
+
+## 1. Descrição do projeto
+
+O Sistema Escolar Django é uma aplicação web desenvolvida em Python utilizando o framework Django. O sistema permite gerenciar professores, alunos e aulas, utilizando modelos para organizar os dados, views para processar requisições, templates HTML para exibir páginas e o painel administrativo para gerenciar os registros.
+
+## 2. Lista de erros encontrados e correções
+
+### Erro 1 — Arquivo `models.py` — Importação do timezone
+
+**ERRO ENCONTRADO:** A falta do import do `timezone` estava causando um erro de importação.
+
+**CORREÇÃO:** Importei `timezone` do `django.utils` para corrigir o erro e permitir a utilização de `timezone.now` nos campos de data.
+
+### Erro 2 — Arquivo `models.py` — Campo especialidade
+
+**ERRO ENCONTRADO:** A falta do campo `especialidade` estava causando um erro no código, pois esse campo era referenciado no `admin.py`.
+
+**CORREÇÃO:** Adicionei o campo `especialidade` na classe `Professor` para permitir sua utilização no painel administrativo.
+
+### Erro 3 — Arquivo `views.py` — Caminho do template
+
+**ERRO ENCONTRADO:** O caminho incluía `templates/`, o que poderia impedir a localização correta do arquivo HTML.
+
+**CORREÇÃO:** Removi `templates/` do caminho, pois o Django procura o arquivo dentro dessa pasta automaticamente, conforme a configuração dos templates.
+
+### Erro 4 — Arquivo `settings.py` — Aplicativo não instalado
+
+**ERRO ENCONTRADO:** A falta do aplicativo `portal` na lista de aplicativos instalados estava causando um erro de importação e configuração do projeto.
+
+**CORREÇÃO:** Adicionei `portal` à lista `INSTALLED_APPS` para que o Django reconheça o aplicativo e carregue seus modelos e demais componentes.
+
+### Erro 5 — Arquivo `cadastro.html` — Página inexistente
+
+**ERRO ENCONTRADO:** O arquivo `cadastro.html` não existia no projeto, impedindo o Django de localizar e exibir a página.
+
+**CORREÇÃO:** Criei o arquivo `cadastro.html` dentro da pasta de templates para permitir que a página de cadastro seja localizada e renderizada pelo Django.
+
+### Erro 6 — Arquivos `models.py` e `admin.py` — Campos de relacionamento da classe Aula
+
+**ERRO ENCONTRADO:** Os campos `aluno_id` e `professor_id` estavam sendo utilizados na classe `Aula`, causando inconsistência entre os nomes dos campos do modelo e sua configuração no painel administrativo.
+
+**CORREÇÃO:** Padronizei os campos de relacionamento da classe `Aula` para `aluno` e `professor` e atualizei o `list_display` da classe `AulaAdmin` para utilizar esses mesmos nomes. O Django cria automaticamente um campo `id` como chave primária de cada registro e gera as colunas necessárias para os relacionamentos `ForeignKey` no banco de dados.
+
+## 3. Instruções para executar o projeto localmente
+
+**Passo 1 — Acessar a pasta do projeto**
+
+Abra o CMD ou terminal do VS Code e execute:
+
+`cd C:\Users\gabriel.britto\Downloads\sistema_escolar_django-main\sistema_escolar_django-main`
+
+**Passo 2 — Instalar as dependências**
+
+Caso exista um arquivo `requirements.txt`, execute:
+
+`python -m pip install -r requirements.txt`
+
+**Passo 3 — Criar as migrações**
+
+`python manage.py makemigrations portal`
+
+**Passo 4 — Aplicar as migrações**
+
+`python manage.py migrate`
+
+**Passo 5 — Iniciar o servidor**
+
+`python manage.py runserver`
+
+**Passo 6 — Acessar o sistema**
+
+Abra o navegador e acesse:
+
+- Painel administrativo: http://127.0.0.1:8000/admin/
+
+A URL de cadastro depende da rota configurada no arquivo `urls.py`.
+
+## 4. Conclusão
+
+As correções realizadas tiveram como objetivo resolver problemas de importação, configuração do aplicativo, localização dos templa
